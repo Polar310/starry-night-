@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Until We're Together ♡</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream:    #faf6f0;
+      --parchment:#f2ebe0;
+      --rose:     #e8b4b8;
+      --blush:    #f5d5d8;
+      --burgundy: #7a3040;
+      --terracotta:#c4654a;
+      --warm-brown:#5a3828;
+      --gold:     #c9964a;
+      --text:     #3a2218;
+      --muted:    #a08070;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+    }
+
+    body {
+      background-color: var(--cream);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      min-height: 100dvh;
+      min-height: 100svh;
+      overflow-x: hidden;
+      position: relative;
+      padding-left: env(safe-area-inset-left, 0px);
+      padding-right: env(safe-area-inset-right, 0px);
+      padding-bottom: env(safe-area-inset-bottom, 0px);
+    }
+
+    /* ── Grain overlay ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none; opacity: .35;
+    }
+
+    /* ── Floating particles ── */
+    #particles { position: fixed; inset: 0; z-index: 1; pointer-events: none; overflow: hidden; }
+    .particle {
+      position: absolute;
+      font-size: clamp(12px, 2.5vw, 18px);
+      opacity: 0;
+      animation: floatUp linear infinite;
+      font-family: system-ui, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif;
+    }
+    @keyframes floatUp {
+      0%   { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+      10%  { opacity: .6; }
+      90%  { opacity: .3; }
+      100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+    }
+
+    /* ── Main wrapper ── */
+    .wrapper {
+      position: relative; z-index: 2;
+      width: 100%;
+      max-width: 430px;
+      margin: 0 auto;
+      padding: max(0px, env(safe-area-inset-top)) 0 60px;
+      box-sizing: border-box;
+    }
+
+    /* ── Header ── */
+    .header {
+      text-align: center;
+      padding: clamp(40px, 12vw, 56px) clamp(16px, 5vw, 24px) 28px;
+    }
+    .header .eyebrow {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 10px;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+    .header h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(36px, 11vw, 52px);
+      line-height: 1.1;
+      color: var(--burgundy);
+      letter-spacing: -.01em;
+    }
+    .header h1 em { font-style: italic; color: var(--terracotta); }
+    .header .sub {
+      margin-top: 10px;
+      font-size: 13px;
+      color: var(--muted);
+      letter-spacing: .04em;
+    }
+
+    /* ── Photo Carousel ── */
+    .carousel-wrap {
+      padding: 0 clamp(12px, 4vw, 20px);
+      margin-bottom: 36px;
+    }
+    .carousel-container {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      background: var(--parchment);
+      box-shadow: 0 12px 40px rgba(90,40,20,.18), 0 2px 6px rgba(90,40,20,.08);
+      touch-action: pan-y pinch-zoom;
+    }
+    .carousel-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 6;
+      width: 44px;
+      height: 44px;
+      padding: 0;
+      border: none;
+      border-radius: 50%;
+      background: rgba(58, 34, 24, 0.42);
+      color: #fff;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px;
+      font-weight: 300;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+      box-shadow: 0 2px 10px rgba(0,0,0,.12);
+    }
+    .carousel-arrow:active {
+      background: rgba(58, 34, 24, 0.58);
+    }
+    .carousel-arrow:focus-visible {
+      outline: 2px solid var(--terracotta);
+      outline-offset: 2px;
+    }
+    .carousel-arrow-prev { left: max(6px, env(safe-area-inset-left, 0px)); }
+    .carousel-arrow-next { right: max(6px, env(safe-area-inset-right, 0px)); }
+    .carousel-track {
+      display: flex;
+      height: 100%;
+      transition: transform .45s cubic-bezier(.4,0,.2,1);
+      will-change: transform;
+    }
+    .carousel-slide {
+      min-width: 100%;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--parchment);
+    }
+    .carousel-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center;
+      display: block;
+    }
+
+    /* placeholder for when no photo uploaded */
+    .slide-placeholder {
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 12px;
+      background: linear-gradient(135deg, var(--blush) 0%, var(--parchment) 100%);
+      cursor: pointer;
+      transition: background .3s;
+    }
+    .slide-placeholder:hover { background: linear-gradient(135deg, #f0c8cc 0%, #ede4d8 100%); }
+    .slide-placeholder .ph-icon { font-size: 40px; opacity: .5; }
+    .slide-placeholder p {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic; font-size: 15px;
+      color: var(--muted); text-align: center;
+      padding: 0 24px;
+    }
+    .slide-placeholder input[type=file] { display: none; }
+
+    /* caption overlay */
+    .slide-caption {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 28px 16px 14px;
+      background: linear-gradient(transparent, rgba(58,34,24,.55));
+      color: #fff;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic; font-size: 15px;
+      text-align: center;
+    }
+
+    .carousel-footer {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 12px 16px;
+      margin-top: 14px;
+      padding: 0 4px;
+    }
+    .carousel-autoplay-toggle {
+      flex-shrink: 0;
+      min-width: 44px;
+      min-height: 44px;
+      padding: 0 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(232, 180, 184, 0.85);
+      background: var(--parchment);
+      color: var(--burgundy);
+      font-size: 15px;
+      line-height: 1;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+      box-shadow: 0 2px 8px rgba(90,40,20,.08);
+    }
+    .carousel-autoplay-toggle:active {
+      transform: scale(0.97);
+    }
+    .carousel-autoplay-toggle:focus-visible {
+      outline: 2px solid var(--terracotta);
+      outline-offset: 2px;
+    }
+    .carousel-autoplay-toggle.is-paused {
+      color: var(--terracotta);
+    }
+
+    /* dots */
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 7px;
+      max-width: 100%;
+      padding: 4px 0;
+    }
+    .dot {
+      width: 8px;
+      height: 8px;
+      min-width: 8px;
+      min-height: 8px;
+      border-radius: 50%;
+      background: var(--rose);
+      opacity: .4;
+      transition: opacity .3s, transform .3s;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+    .dot.active { opacity: 1; transform: scale(1.35); background: var(--burgundy); }
+
+    /* ── Countdown ── */
+    .countdown-section {
+      padding: 0 clamp(12px, 4vw, 20px) 8px;
+    }
+    .section-label {
+      font-size: 10px; letter-spacing: .2em;
+      text-transform: uppercase; color: var(--muted);
+      text-align: center; margin-bottom: 20px;
+    }
+    .countdown-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: clamp(6px, 2vw, 10px);
+    }
+    .count-box {
+      background: var(--parchment);
+      border-radius: 16px;
+      padding: 18px 8px 14px;
+      text-align: center;
+      box-shadow: 0 4px 16px rgba(90,40,20,.10);
+      transition: transform .2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .count-box::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--rose), var(--terracotta));
+      opacity: .6;
+    }
+    .count-box:active { transform: scale(.95); }
+    .count-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(22px, 8.5vw, 46px);
+      font-weight: 600; line-height: 1;
+      color: var(--burgundy);
+      display: block;
+      transition: transform .3s cubic-bezier(.34,1.56,.64,1);
+    }
+    .count-num.bump { transform: scale(1.25); }
+    .count-label {
+      font-size: 9px; letter-spacing: .16em;
+      text-transform: uppercase; color: var(--muted);
+      margin-top: 5px; display: block;
+    }
+
+    /* ── Date banner ── */
+    .date-banner {
+      text-align: center;
+      margin: 28px clamp(12px, 4vw, 20px);
+      padding: 18px 20px;
+      background: linear-gradient(135deg, var(--burgundy) 0%, var(--terracotta) 100%);
+      border-radius: 18px;
+      color: #fff;
+      box-shadow: 0 8px 24px rgba(122,48,64,.30);
+    }
+    .date-banner .date-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 26px; font-weight: 300;
+      letter-spacing: .03em; line-height: 1.2;
+    }
+    .date-banner .date-note {
+      font-size: 11px; letter-spacing: .15em;
+      text-transform: uppercase; opacity: .75;
+      margin-top: 5px;
+    }
+
+    /* ── Quote rotator ── */
+    .quote-section {
+      padding: 0 clamp(16px, 5vw, 28px);
+      margin-bottom: 28px;
+      text-align: center;
+    }
+    .quote-card {
+      background: var(--parchment);
+      border-radius: 20px;
+      padding: 28px 24px;
+      box-shadow: 0 4px 18px rgba(90,40,20,.09);
+      min-height: 110px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 10px;
+      position: relative;
+    }
+    .quote-card .q-mark {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 60px; line-height: .5;
+      color: var(--rose); opacity: .6;
+      position: absolute; top: 14px; left: 18px;
+    }
+    .quote-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic; font-size: 18px;
+      line-height: 1.55; color: var(--warm-brown);
+      transition: opacity .4s, transform .4s;
+      overflow-wrap: anywhere;
+      word-wrap: break-word;
+    }
+    .quote-text.fade { opacity: 0; transform: translateY(8px); }
+    .quote-attr {
+      font-size: 11px; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--muted);
+    }
+
+    /* ── Little Love Notes ── */
+    .notes-section {
+      padding: 0 clamp(12px, 4vw, 20px);
+      margin-bottom: 28px;
+    }
+    .notes-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+    }
+    .note-card {
+      background: var(--parchment);
+      border-radius: 16px; padding: 18px 14px;
+      box-shadow: 0 3px 12px rgba(90,40,20,.08);
+      text-align: center;
+    }
+    .note-card .n-icon { font-size: 26px; margin-bottom: 8px; display: block; }
+    .note-card .n-val {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 24px; font-weight: 600;
+      color: var(--burgundy); display: block;
+    }
+    .note-card .n-label {
+      font-size: 11px; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--muted);
+      margin-top: 3px; display: block; line-height: 1.3;
+    }
+
+    /* ── Progress bar ── */
+    .progress-section {
+      padding: 0 clamp(12px, 4vw, 20px);
+      margin-bottom: 32px;
+    }
+    .progress-label {
+      display: flex; justify-content: space-between;
+      font-size: 11px; color: var(--muted);
+      letter-spacing: .1em; text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .progress-track {
+      height: 8px; background: var(--parchment);
+      border-radius: 99px; overflow: hidden;
+      box-shadow: inset 0 2px 4px rgba(90,40,20,.08);
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--rose), var(--terracotta));
+      border-radius: 99px;
+      transition: width 1.5s cubic-bezier(.4,0,.2,1);
+    }
+    .progress-pct {
+      text-align: center; margin-top: 8px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 14px; color: var(--muted); font-style: italic;
+    }
+
+    /* ── Spotify embed ── */
+    .spotify-section {
+      padding: 0 clamp(12px, 4vw, 20px) 8px;
+      margin-bottom: 24px;
+    }
+    .spotify-caption {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 15px;
+      color: var(--warm-brown);
+      text-align: center;
+      margin-bottom: 14px;
+      line-height: 1.45;
+    }
+    .spotify-embed {
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 8px 28px rgba(90,40,20,.12);
+      background: var(--parchment);
+    }
+    .spotify-embed iframe {
+      display: block;
+      width: 100%;
+      height: clamp(220px, 48vh, 352px);
+      max-height: 60vh;
+      border: 0;
+    }
+
+    /* ── Footer ── */
+    .footer {
+      text-align: center;
+      padding: 10px clamp(12px, 4vw, 20px) 0;
+    }
+    .heart-tap {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 48px;
+      min-height: 48px;
+      font-size: 28px;
+      cursor: pointer;
+      transition: transform .2s cubic-bezier(.34,1.56,.64,1);
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+    .heart-tap:active { transform: scale(1.5); }
+    .footer p {
+      margin-top: 10px; font-family: 'Cormorant Garamond', serif;
+      font-style: italic; font-size: 13px; color: var(--muted);
+    }
+
+    /* ── Pop hearts on tap ── */
+    .pop-heart {
+      position: fixed; z-index: 999; pointer-events: none;
+      font-size: 22px;
+      animation: popFly 1s ease-out forwards;
+      font-family: system-ui, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif;
+    }
+    @keyframes popFly {
+      0%   { opacity: 1; transform: translateY(0) scale(.5); }
+      50%  { opacity: 1; transform: translateY(-60px) scale(1.2); }
+      100% { opacity: 0; transform: translateY(-110px) scale(.8); }
+    }
+
+    /* ── Divider ── */
+    .divider {
+      display: flex; align-items: center; gap: 12px;
+      padding: 0 clamp(16px, 5vw, 24px);
+      margin: 4px 0 24px;
+    }
+
+    .divider-line { flex: 1; height: 1px; background: var(--blush); }
+    .divider-icon { color: var(--rose); font-size: 13px; }
+
+    @media (max-width: 360px) {
+      .date-banner .date-text { font-size: 22px; }
+      .count-box { padding: 14px 4px 12px; }
+      .note-card { padding: 16px 10px; }
+      .quote-card { padding: 22px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="particles"></div>
+
+<div class="wrapper">
+
+  <!-- ── HEADER ── -->
+  <header class="header">
+    <p class="eyebrow" id="eyebrow-text">A love that crosses every mile</p>
+    <h1 id="main-title">Until we're<br/><em>together again</em></h1>
+    <p class="sub" id="header-names">— just for us —</p>
+  </header>
+
+  <!-- ── CAROUSEL ── -->
+  <div class="carousel-wrap">
+    <div class="carousel-container" id="carousel">
+      <button type="button" class="carousel-arrow carousel-arrow-prev" id="carousel-prev" aria-label="Previous photo">‹</button>
+      <div class="carousel-track" id="track">
+
+        <!-- Slide 1 -->
+        <div class="carousel-slide" id="slide-0">
+          <img src="4780DA43-E70A-463B-B731-F2D7F96FD35F.JPG" alt="Memory 1" />
+          <div class="slide-caption" id="cap-0" style="display:none"></div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="carousel-slide" id="slide-1">
+          <img src="6114A5DD-8066-45BB-B858-6B425932F3B6.JPG" alt="Memory 2" />
+          <div class="slide-caption" id="cap-1" style="display:none"></div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="carousel-slide" id="slide-2">
+          <img src="203218DE-8974-4BB8-8568-E53FF23B9927.JPG" alt="Memory 3" />
+          <div class="slide-caption" id="cap-2" style="display:none"></div>
+        </div>
+
+        <!-- Slide 4 -->
+        <div class="carousel-slide" id="slide-3">
+          <img src="EB5A2EF2-32DF-4203-AAD5-F3C78E1AE906.JPG" alt="Memory 4" />
+          <div class="slide-caption" id="cap-3" style="display:none"></div>
+        </div>
+
+        <!-- Slide 5 -->
+        <div class="carousel-slide" id="slide-4">
+          <img src="IMG_3975.jpeg" alt="Hand-drawn sketch of two stick figures playing badminton across a net" />
+          <div class="slide-caption" id="cap-4" style="display:none"></div>
+        </div>
+
+        <!-- Slide 6 -->
+        <div class="carousel-slide" id="slide-5">
+          <img src="IMG_3976.jpeg" alt="Hand-drawn doodle of a stick-figure family with Emirates and Arsenal motifs and a dog" />
+          <div class="slide-caption" id="cap-5" style="display:none"></div>
+        </div>
+
+        <!-- Slide 7 -->
+        <div class="carousel-slide" id="slide-6">
+          <img src="IMG_3977.jpeg" alt="Hand-drawn sketch of Marina Bay Sands in Singapore with two figures and a dog" />
+          <div class="slide-caption" id="cap-6" style="display:none"></div>
+        </div>
+
+        <!-- Slide 8 -->
+        <div class="carousel-slide" id="slide-7">
+          <img src="IMG_3974.jpeg" alt="Hand-drawn sketch of two stick figures surfing together" />
+          <div class="slide-caption" id="cap-7" style="display:none"></div>
+        </div>
+
+      </div>
+      <button type="button" class="carousel-arrow carousel-arrow-next" id="carousel-next" aria-label="Next photo">›</button>
+    </div>
+    <div class="carousel-footer">
+      <button type="button" class="carousel-autoplay-toggle" id="carousel-autoplay-toggle" aria-pressed="false" aria-label="Pause slideshow">⏸</button>
+      <div class="carousel-dots" id="dots">
+        <div class="dot active" onclick="goTo(0)"></div>
+        <div class="dot" onclick="goTo(1)"></div>
+        <div class="dot" onclick="goTo(2)"></div>
+        <div class="dot" onclick="goTo(3)"></div>
+        <div class="dot" onclick="goTo(4)"></div>
+        <div class="dot" onclick="goTo(5)"></div>
+        <div class="dot" onclick="goTo(6)"></div>
+        <div class="dot" onclick="goTo(7)"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── COUNTDOWN ── -->
+  <section class="countdown-section">
+    <p class="section-label">Counting every second ♡</p>
+    <div class="countdown-grid">
+      <div class="count-box">
+        <span class="count-num" id="cd-days">--</span>
+        <span class="count-label">days</span>
+      </div>
+      <div class="count-box">
+        <span class="count-num" id="cd-hours">--</span>
+        <span class="count-label">hours</span>
+      </div>
+      <div class="count-box">
+        <span class="count-num" id="cd-mins">--</span>
+        <span class="count-label">minutes</span>
+      </div>
+      <div class="count-box">
+        <span class="count-num" id="cd-secs">--</span>
+        <span class="count-label">seconds</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── DATE BANNER ── -->
+  <div class="date-banner">
+    <div class="date-text" id="target-date-text">20th June 2026</div>
+    <div class="date-note">The day everything changes ✈️</div>
+  </div>
+
+  <!-- ── PROGRESS ── -->
+  <section class="progress-section">
+    <div class="progress-label">
+      <span id="prog-start-label">28 Feb 2026</span>
+      <span>Reunion ♡</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" id="prog-fill" style="width:0%"></div>
+    </div>
+    <p class="progress-pct" id="prog-text"></p>
+  </section>
+
+  <div class="divider">
+    <div class="divider-line"></div>
+    <span class="divider-icon">♡</span>
+    <div class="divider-line"></div>
+  </div>
+
+  <!-- ── LITTLE LOVE NOTES GRID ── -->
+  <section class="notes-section">
+    <p class="section-label" style="margin-bottom:16px;">little things that matter</p>
+    <div class="notes-grid">
+      <div class="note-card">
+        <span class="n-icon">🌍</span>
+        <span class="n-val" id="km-apart">...</span>
+        <span class="n-label">days until reunion</span>
+      </div>
+      <div class="note-card">
+        <span class="n-icon">☀️</span>
+        <span class="n-val" id="days-until">...</span>
+        <span class="n-label">months until reunion</span>
+      </div>
+      <div class="note-card">
+        <span class="n-icon">💌</span>
+        <span class="n-val" id="week-count">...</span>
+        <span class="n-label">weeks until reunion</span>
+      </div>
+      <div class="note-card">
+        <span class="n-icon">🌙</span>
+        <span class="n-val" id="nights-count">...</span>
+        <span class="n-label">minutes remaining</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── QUOTE ── -->
+  <section class="quote-section">
+    <div class="quote-card">
+      <span class="q-mark">"</span>
+      <p class="quote-text" id="quote-text"></p>
+      <span class="quote-attr" id="quote-attr"></span>
+    </div>
+  </section>
+
+  <div class="divider">
+    <div class="divider-line"></div>
+    <span class="divider-icon">✦</span>
+    <div class="divider-line"></div>
+  </div>
+
+  <!-- ── SPOTIFY ── Replace SPOTIFY_PLAYLIST_ID in the script with your playlist's ID from its Spotify URL. -->
+  <section class="spotify-section" id="spotify-section">
+    <p class="spotify-caption">for when the days are a lil more harder</p>
+    <div class="spotify-embed" id="spotify-embed-wrap"></div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer class="footer">
+    <span class="heart-tap" id="heart-btn" onclick="popHearts(event)">♡</span>
+    <p>every mile is worth it</p>
+  </footer>
+
+</div>
+
+<script>
+  // ── TARGET DATE ──────────────────────────────────────────
+  const TARGET = new Date('2026-06-20T00:00:00');
+  const MS_PER_DAY = 86400000;
+  // Progress bar: journey from this day through reunion day (reunion day counts as the last full day).
+  const PROGRESS_START = new Date(2026, 1, 28); // 28 Feb 2026, local midnight
+  /** Paste your playlist ID (the long id in https://open.spotify.com/playlist/…) */
+  const SPOTIFY_PLAYLIST_ID = '6fogzPyiiM7krntoigZiPq';
+
+  function ordinal(n) {
+    const mod10 = n % 10;
+    const mod100 = n % 100;
+    if (mod10 === 1 && mod100 !== 11) return `${n}st`;
+    if (mod10 === 2 && mod100 !== 12) return `${n}nd`;
+    if (mod10 === 3 && mod100 !== 13) return `${n}rd`;
+    return `${n}th`;
+  }
+
+  function formatTargetDate(date) {
+    const dayName = date.toLocaleDateString('en-GB', { weekday: 'long' });
+    const monthName = date.toLocaleDateString('en-GB', { month: 'long' });
+    return `${dayName}, ${ordinal(date.getDate())} ${monthName} ${date.getFullYear()}`;
+  }
+
+  function updateTargetDateText() {
+    const dateEl = document.getElementById('target-date-text');
+    if (dateEl) dateEl.textContent = formatTargetDate(TARGET);
+  }
+
+  // ── QUOTES ──────────────────────────────────────────────
+  const quotes = [
+    { text: "I carry your heart with me, I carry it in my heart.", attr: "— E.E. Cummings" },
+    { text: "I carry your heart with me, I carry it in my heart.", attr: "— E.E. Cummings" },
+    { text: "Distance means so little when someone means so much.", attr: "— Tom McNeal" },
+    { text: "I exist in two places — here, and where you are.", attr: "— Margaret Atwood" },
+    { text: "How lucky I am to have something that makes saying goodbye so hard.", attr: "— A.A. Milne" },
+    { text: "The thought of you is brighter than all the streetlights in the world.", attr: "— atticus" },
+    { text: "Absence is to love as wind is to fire, it extinguishes the small, it inflames the great.", attr: "— Bussy-Rabutin" },
+    { text: "I love you, not only for what you are, but for what I am when I am with you.", attr: "— Roy Croft" },
+    { text: "In all the world, there is no heart for me like yours.", attr: "— Maya Angelou" },
+    { text: "I know it's hard now, but I'll always be with you no matter what", attr: "— Agastya Mudgal" },
+    { text: "We will always THRIVE no matter the distance", attr: "— Agastya Mudgal" },
+    { text: "I always choose you even in the hardest days, I want every part of you", attr: "— Agastya Mudgal" },
+    { text: "Baby, I'm always yours <3", attr: "— Agastya Mudgal" },
+    { text: "The more you read this and the more you refresh this the more closer I get to you ", attr: "— Agastya Mudgal" },
+  ];
+  let qIdx = 0;
+
+  function showQuote(idx) {
+    const el = document.getElementById('quote-text');
+    const at = document.getElementById('quote-attr');
+    el.classList.add('fade');
+    setTimeout(() => {
+      el.textContent = quotes[idx].text;
+      at.textContent = quotes[idx].attr;
+      el.classList.remove('fade');
+    }, 400);
+  }
+  showQuote(0);
+  setInterval(() => { qIdx = (qIdx + 1) % quotes.length; showQuote(qIdx); }, 7000);
+
+  // ── COUNTDOWN ──────────────────────────────────────────
+  let prevSecs = -1;
+  function updateCountdown() {
+    const now  = new Date();
+    const diff = TARGET - now;
+    if (diff <= 0) {
+      ['cd-days','cd-hours','cd-mins','cd-secs'].forEach(id => { document.getElementById(id).textContent = '00'; });
+      document.getElementById('days-until').textContent = '0';
+      document.getElementById('nights-count').textContent = '0';
+      document.getElementById('km-apart').textContent = '0';
+      document.getElementById('week-count').textContent = '0';
+      updateProgress();
+      return;
+    }
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor((diff % 86400000) / 3600000);
+    const m = Math.floor((diff % 3600000)  / 60000);
+    const s = Math.floor((diff % 60000)    / 1000);
+
+    const pad = n => String(n).padStart(2,'0');
+    setVal('cd-days',  pad(d));
+    setVal('cd-hours', pad(h));
+    setVal('cd-mins',  pad(m));
+    setVal('cd-secs',  pad(s), s !== prevSecs);
+    prevSecs = s;
+
+    // notes
+    const monthsLeft = Math.max(
+      0,
+      (TARGET.getFullYear() - now.getFullYear()) * 12 +
+      (TARGET.getMonth() - now.getMonth()) -
+      (TARGET.getDate() < now.getDate() ? 1 : 0)
+    );
+    const totalMinutesLeft = Math.max(0, Math.floor(diff / 60000));
+    document.getElementById('days-until').textContent = monthsLeft;
+    document.getElementById('nights-count').textContent = totalMinutesLeft.toLocaleString('en-US');
+    document.getElementById('km-apart').textContent = d;
+    document.getElementById('week-count').textContent = Math.ceil(d / 7);
+    updateProgress();
+  }
+
+  function setVal(id, val, bump=false) {
+    const el = document.getElementById(id);
+    if (el.textContent !== val) {
+      el.textContent = val;
+      if (bump) { el.classList.add('bump'); setTimeout(()=>el.classList.remove('bump'), 350); }
+    }
+  }
+
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  // ── PROGRESS ──────────────────────────────────────────
+  function updateProgress() {
+    const now = new Date();
+    const nowAtMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const reunionMidnight = new Date(TARGET.getFullYear(), TARGET.getMonth(), TARGET.getDate());
+    const dayAfterReunion = new Date(reunionMidnight);
+    dayAfterReunion.setDate(dayAfterReunion.getDate() + 1);
+
+    const journeyStart = new Date(PROGRESS_START.getFullYear(), PROGRESS_START.getMonth(), PROGRESS_START.getDate());
+    const journeyMs = dayAfterReunion - journeyStart;
+    let pct = 0;
+    if (journeyMs > 0) {
+      const elapsed = now - journeyStart;
+      pct = Math.min(100, Math.max(0, (elapsed / journeyMs) * 100));
+    } else {
+      pct = 100;
+    }
+
+    let totalDaysInclusive;
+    if (nowAtMidnight <= reunionMidnight) {
+      totalDaysInclusive = Math.floor((reunionMidnight - nowAtMidnight) / MS_PER_DAY) + 1;
+    } else {
+      totalDaysInclusive = 0;
+    }
+
+    document.getElementById('prog-fill').style.width = pct.toFixed(1) + '%';
+    document.getElementById('prog-text').textContent =
+      `${totalDaysInclusive} day${totalDaysInclusive === 1 ? '' : 's'} to go`;
+
+    const startLbl = document.getElementById('prog-start-label');
+    if (startLbl) {
+      startLbl.textContent = new Intl.DateTimeFormat('en-GB', {
+        day: 'numeric', month: 'short', year: 'numeric'
+      }).format(journeyStart);
+    }
+  }
+
+  (function mountSpotifyEmbed() {
+    const wrap = document.getElementById('spotify-embed-wrap');
+    if (!wrap) return;
+    if (!SPOTIFY_PLAYLIST_ID || SPOTIFY_PLAYLIST_ID === 'YOUR_PLAYLIST_ID') {
+      wrap.innerHTML = '<p style="padding:18px;text-align:center;font-size:13px;color:var(--muted);font-style:italic;">Add your playlist ID in the page script (SPOTIFY_PLAYLIST_ID) to load the player.</p>';
+      return;
+    }
+    const iframe = document.createElement('iframe');
+    iframe.setAttribute('loading', 'lazy');
+    iframe.setAttribute('allow', 'autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture');
+    iframe.src = `https://open.spotify.com/embed/playlist/${SPOTIFY_PLAYLIST_ID}?utm_source=generator`;
+    wrap.appendChild(iframe);
+  })();
+
+  // ── PERSONAL CAPTIONS + NAMES (from saved data) ───────
+  (function applySavedPersonalData() {
+    const n1 = localStorage.getItem('ld-name1') || '';
+    const n2 = localStorage.getItem('ld-name2') || '';
+    if (n1 && n2) {
+      document.getElementById('main-title').innerHTML =
+        `Until <em>${n1}</em><br/>& <em>${n2}</em>`;
+      document.getElementById('header-names').textContent = `— ${n1} & ${n2} —`;
+    }
+    [0,1,2,3,4,5,6,7].forEach(i => {
+      const cap = localStorage.getItem(`ld-cap-${i}`);
+      const el = document.getElementById(`cap-${i}`);
+      if (cap) { el.textContent = cap; el.style.display = ''; }
+    });
+  })();
+  updateTargetDateText();
+  setInterval(updateTargetDateText, MS_PER_DAY);
+
+  // ── IMAGES ────────────────────────────────────────────
+  // Restore saved images
+  [0,1,2,3,4,5,6,7].forEach(i => {
+    const data = localStorage.getItem(`ld-img-${i}`);
+    if (data) renderImage(i, data);
+  });
+
+  function loadImage(idx, input) {
+    const file = input.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = e => {
+      const data = e.target.result;
+      localStorage.setItem(`ld-img-${idx}`, data);
+      renderImage(idx, data);
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function renderImage(idx, src) {
+    const slide = document.getElementById(`slide-${idx}`);
+    // remove placeholder
+    const ph = slide.querySelector('.slide-placeholder');
+    if (ph) ph.remove();
+    // add img if not there
+    if (!slide.querySelector('img')) {
+      const img = document.createElement('img');
+      img.src = src;
+      slide.insertBefore(img, slide.firstChild);
+    } else {
+      slide.querySelector('img').src = src;
+    }
+    // show caption
+    const cap = localStorage.getItem(`ld-cap-${idx}`);
+    const capEl = document.getElementById(`cap-${idx}`);
+    if (cap) { capEl.textContent = cap; capEl.style.display = ''; }
+  }
+
+  // ── CAROUSEL ──────────────────────────────────────────
+  let current = 0;
+  const track = document.getElementById('track');
+  const slideCount = document.querySelectorAll('.carousel-slide').length;
+  let startX = null;
+  let carouselAutoplayTimer = null;
+  let carouselAutoplayPaused = false;
+
+  function syncCarouselAutoplayButton() {
+    const btn = document.getElementById('carousel-autoplay-toggle');
+    if (!btn) return;
+    btn.setAttribute('aria-pressed', carouselAutoplayPaused ? 'true' : 'false');
+    btn.setAttribute('aria-label', carouselAutoplayPaused ? 'Play slideshow' : 'Pause slideshow');
+    btn.textContent = carouselAutoplayPaused ? '▶' : '⏸';
+    btn.classList.toggle('is-paused', carouselAutoplayPaused);
+  }
+
+  function restartCarouselAutoplay() {
+    clearInterval(carouselAutoplayTimer);
+    carouselAutoplayTimer = null;
+    if (carouselAutoplayPaused) return;
+    carouselAutoplayTimer = setInterval(() => {
+      goTo((current + 1) % slideCount);
+    }, 5000);
+  }
+
+  function goTo(idx) {
+    current = Math.max(0, Math.min(slideCount - 1, idx));
+    track.style.transform = `translateX(-${current * 100}%)`;
+    document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === current));
+    restartCarouselAutoplay();
+  }
+
+  const carousel = document.getElementById('carousel');
+  const prevBtn = document.getElementById('carousel-prev');
+  const nextBtn = document.getElementById('carousel-next');
+  const autoplayBtn = document.getElementById('carousel-autoplay-toggle');
+
+  if (prevBtn) {
+    prevBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      goTo(current === 0 ? slideCount - 1 : current - 1);
+    });
+  }
+  if (nextBtn) {
+    nextBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      goTo((current + 1) % slideCount);
+    });
+  }
+  if (autoplayBtn) {
+    autoplayBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      carouselAutoplayPaused = !carouselAutoplayPaused;
+      syncCarouselAutoplayButton();
+      restartCarouselAutoplay();
+    });
+  }
+
+  if (carousel) {
+    carousel.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
+    carousel.addEventListener('touchend', e => {
+      if (startX === null) return;
+      const dx = e.changedTouches[0].clientX - startX;
+      if (Math.abs(dx) > 40) {
+        if (dx < 0) goTo((current + 1) % slideCount);
+        else goTo(current === 0 ? slideCount - 1 : current - 1);
+      }
+      startX = null;
+    });
+  }
+
+  syncCarouselAutoplayButton();
+  restartCarouselAutoplay();
+
+  // ── FLOATING + POP EMOJIS (shared pool, random by .length so none are skipped) ──
+  const FLOW_EMOJIS = [
+    '♡', '♥', '❤', '🌸', '❤️', '💕', '💞', '🥰', '🫶', '🩷', '💛', '💚', '💙', '🩵', '💜', '🩶', '🤍', '🤎',
+    '❤️‍🔥', '❣️', '💓', '💗', '💖', '💘', '💝', '🧡', '♥️', '💟', '🌹', '💌', '💐', '🌷', '🪻', '🪷', '🌺', '🌼', '🌻',
+    '✦', '✿', '·', '❋'
+  ];
+  function randomFlowEmoji() {
+    return FLOW_EMOJIS[Math.floor(Math.random() * FLOW_EMOJIS.length)];
+  }
+
+  // ── PARTICLES ─────────────────────────────────────────
+  const pc = document.getElementById('particles');
+  for (let i = 0; i < 28; i++) {
+    const el = document.createElement('div');
+    el.className = 'particle';
+    el.textContent = randomFlowEmoji();
+    el.style.cssText = `
+      left: ${Math.random()*100}%;
+      animation-duration: ${8 + Math.random()*14}s;
+      animation-delay: ${Math.random()*12}s;
+      color: ${['var(--rose)','var(--terracotta)','var(--gold)'][Math.floor(Math.random()*3)]};
+      font-size: ${12 + Math.random()*12}px;
+    `;
+    pc.appendChild(el);
+  }
+
+  // ── POP HEARTS ────────────────────────────────────────
+  function popHearts(e) {
+    for (let i = 0; i < 6; i++) {
+      setTimeout(() => {
+        const h = document.createElement('div');
+        h.className = 'pop-heart';
+        h.textContent = randomFlowEmoji();
+        const cx = e.clientX || window.innerWidth/2;
+        const cy = e.clientY || window.innerHeight/2;
+        h.style.cssText = `
+          left: ${cx + (Math.random()-0.5)*60}px;
+          top:  ${cy}px;
+          animation-delay: ${i*0.08}s;
+        `;
+        document.body.appendChild(h);
+        setTimeout(() => h.remove(), 1200);
+      }, i * 80);
+    }
+  }
+
+  // Tap anywhere to pop a small heart occasionally
+  document.body.addEventListener('click', e => {
+    if (Math.random() > 0.4) return;
+    const h = document.createElement('div');
+    h.className = 'pop-heart';
+    h.textContent = randomFlowEmoji();
+    h.style.cssText = `left:${e.clientX}px;top:${e.clientY}px;font-size:16px;`;
+    document.body.appendChild(h);
+    setTimeout(() => h.remove(), 900);
+  });
+</script>
+</body>
+</html>
